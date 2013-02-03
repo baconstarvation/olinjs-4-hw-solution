@@ -13,6 +13,7 @@ var express = require('express')
 var app = express();
 
 app.configure(function(){
+  mongoose.connect(process.env.MONGOLAB_URI || 'localhost');
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -20,10 +21,9 @@ app.configure(function(){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.cookieParser('your secret here'));
+  app.use(express.cookieParser('secret_key'));
   app.use(express.session());
   app.use(app.router);
-  mongoose.connect(process.env.MONGOLAB_URI || 'localhost');
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
@@ -32,7 +32,9 @@ app.configure('development', function(){
 });
 
 app.get('/', tweets.list);
-app.get('/users/new', user.list);
+app.get('/users/new', user.new);
+app.post('/users/new', user.create);
+app.get('/tweets/more', tweets.more);
 
 app.post('/tweets/:user', tweets.new);
 

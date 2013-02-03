@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 
 var tweetSchema = mongoose.Schema({
   tweet: String,
-  created: new Date(),
-  _creator : { type: Schema.Types.ObjectId, ref: 'User' }
+  created: Date,
+  _creator : { type: mongoose.Schema.ObjectId, ref: 'User' }
 });
 
-exports.Tweet = mongoose.model('Tweet', tweetSchema);
+module.exports = mongoose.model('Tweet', tweetSchema);

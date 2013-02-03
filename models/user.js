@@ -1,8 +1,9 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose')
+  , Schema = mongoose.Schema;
 
-var userSchema = mongoose.Schema({
+var userSchema = Schema({
   name: String,
   tweets: [{ type: Schema.Types.ObjectId, ref: 'Tweet' }]
 });
 
-exports.User = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema);

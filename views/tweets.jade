@@ -1,5 +1,8 @@
 extends layout
 
 block content
-  div Here's the list of tweets
+  -if (logged_in)
+    div Create a twit
+  
+  div Here's the list of twit
     include _tweets
